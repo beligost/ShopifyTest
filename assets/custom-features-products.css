@@ -1,3 +1,7 @@
+.custom-features-products {
+  font-family: "Gothic A1", sans-serif;
+}
+
 .custom-features-products__container {
   display: flex;
   margin: 0 auto;
