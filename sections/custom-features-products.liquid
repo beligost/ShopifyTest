@@ -1,3 +1,5 @@
+{{ 'custom-features-products.css' | asset_url | stylesheet_tag }}
+
 {% assign collection_handle = section.settings.collection_handle %}
 {% assign my_collection = collections[collection_handle] %}
 {% assign cart_items = cart.items | map: 'product_id' %}
