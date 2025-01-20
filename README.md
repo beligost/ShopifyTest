@@ -3,6 +3,7 @@
 ### How to run dev mode
 
 `npm i` – install all packages
+
 `gulp watch` – run sass compiler and watch all changes 
 
 
