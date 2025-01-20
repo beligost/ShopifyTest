@@ -1,0 +1,52 @@
+{% assign collection_handle = section.settings.collection_handle %}
+{% assign my_collection = collections[collection_handle] %}
+{% assign cart_items = cart.items | map: 'product_id' %}
+{% assign products_not_in_cart = 0 %}
+
+<custom-features-products class="custom-features-products__container">
+  <h2 class="custom-features-products__heading">{{ section.settings.section_title }}</h2>
+  <div id="product-list" class="custom-features-products__list" data-section-id="{{ section.id }}">
+    {% for product in my_collection.products %}
+      {% unless cart_items contains product.id %}
+        {% assign products_not_in_cart = products_not_in_cart | plus: 1 %}
+        <div class="custom-features-products__item">
+          <img class="custom-features-products__img" src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}">
+          <a class="custom-features-products__title" href="{{ product.url }}">{{ product.title }}</a>
+          <form class="custom-features-products__form" method="post" enctype="multipart/form-data" data-type="add-to-cart-form" action="{{ routes.cart_add_url }}">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <button type="submit" name="add" class="custom-features-products__button">Add to Cart – {{ product.price | money_without_trailing_zeros }}</button>
+          </form>
+        </div>
+      {% endunless %}
+    {% endfor %}
+  
+    {% if products_not_in_cart == 0 %}
+      <p class="custom-features-products__message">All products from this collection are already in your cart.</p>
+    {% endif %}
+  </div>
+</custom-features-products>
+
+
+{% schema %}
+{
+  "name": "Custom features products",
+  "tag": "section",
+  "class": "custom-features-products",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Features products"
+    },
+    {
+      "type": "collection",
+      "id": "collection_handle",
+      "label": "Collection Handle",
+      "info": "Enter the handle of the collection you want to display."
+    }
+  ],
+  "presets": [{ "name": "Custom features products" }]
+}
+{% endschema %}
