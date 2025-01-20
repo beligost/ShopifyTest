@@ -9,6 +9,8 @@
 {% assign cart_items = cart.items | map: 'product_id' %}
 {% assign products_not_in_cart = 0 %}
 
+<script src="{{ 'custom-features-products.js' | asset_url }}" defer="defer"></script>
+
 <custom-features-products class="custom-features-products__container">
   <h2 class="custom-features-products__heading">{{ section.settings.section_title }}</h2>
   <div id="product-list" class="custom-features-products__list" data-section-id="{{ section.id }}">
